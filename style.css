@@ -1,0 +1,12 @@
+html,
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+canvas {
+	display: block;
+	border: solid 2px;
+}
