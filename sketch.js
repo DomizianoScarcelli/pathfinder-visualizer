@@ -7,13 +7,7 @@ class Node {
 	}
 }
 let start = new Node(500, 500, undefined, 0);
-let end = new Node(700, 500);
-
-var queue = new PriorityQueue({
-	comparator: (a, b) => {
-		return a.dist - b.dist;
-	},
-});
+let end = new Node(1400, 700);
 
 var nodes = [];
 
@@ -22,85 +16,132 @@ for (var y = 0; y < 80; y++) {
 		let node = new Node(x * 10, y * 10, undefined, Infinity);
 
 		if (node.x == start.x && node.y == start.y) {
-			queue.queue(start);
 			nodes.push(start);
 		} else if (node.x == end.x && node.y == end.y) {
-			queue.queue(end);
 			nodes.push(end);
 		} else {
-			queue.queue(node);
 			nodes.push(node);
 		}
 	}
 }
 
-// shortestPath();
-
-let S = [];
-let node = end;
-if (node.prec != undefined) {
-	while (node != undefined) {
-		S.push(node);
-		node = node.prec;
-	}
-}
-
 function setup() {
 	createCanvas(1500, 800);
-}
 
-function draw() {
 	fill(0, 200, 0);
 	rect(start.x, start.y, 10);
 	fill(200, 0, 0);
 	rect(end.x, end.y, 10);
-	// S.forEach((elem) => {
-	// 	if (elem.prec != undefined) {
-	// 		fill(50);
-	// 		animate(elem.x, elem.y, 10);
-	// 	}
-	// });
+	fill(50, 50, 50);
+	while (nodes.length != 0) {
+		var u = nodes.reduce((prev, curr) => (prev.dist < curr.dist ? prev : curr));
+		if (u.prec == end) nodes = [];
+		nodes = nodes.filter((elem) => elem != u);
+		adjacent(u).forEach((v) => {
+			if (!(v.x == end.x && v.y == end.y)) {
+				setTimeout(() => {
+					square(v.x, v.y, 10);
+				}, 10);
+			}
 
-	nodes.forEach((elem) => {
-		if (elem.prec != undefined) {
-			fill(50);
-			square(elem.x, elem.y, 10);
+			let alt = u.dist + 1;
+			if (alt < v.dist) {
+				v.dist = alt;
+				v.prec = u;
+			}
+		});
+	}
+	fill(100, 40, 20);
+	let node = end;
+	if (node.prec != undefined) {
+		while (node != undefined) {
+			square(node.x, node.y, 10);
+			node = node.prec;
 		}
-	});
-}
-
-function mouseDragged() {
-	dim = 10;
-	fill(51);
-	x = mouseX - (mouseX % dim);
-	y = mouseY - (mouseY % dim);
-	animate(x, y, dim);
-}
-
-function mouseClicked() {
-	dim = 10;
-	fill(51);
-	x = mouseX - (mouseX % dim);
-	y = mouseY - (mouseY % dim);
-	animate(x, y, dim);
-}
-
-function animate(x, y, dim) {
-	for (let i = 0; i < dim; i++) {
-		setTimeout(() => {
-			fill(51);
-			square(x, y, i);
-		}, i * 5);
 	}
 }
 
+async function drawPath() {}
+
+function draw() {}
+
+// function draw() {
+// 	fill(0, 200, 0);
+// 	rect(start.x, start.y, 10);
+// 	fill(200, 0, 0);
+// 	rect(end.x, end.y, 10);
+// 	fill(0, 200, 0);
+// 	let visited = [];
+// 	while (nodes.length != 0) {
+// 		var u = nodes.reduce((prev, curr) => (prev.dist < curr.dist ? prev : curr));
+// 		if (u.prec == end) nodes = [];
+// 		nodes = nodes.filter((elem) => elem != u);
+// 		visited.push(u);
+// 		adjacent(u).forEach((v) => {
+// 			if (!visited.includes(v)) {
+// 				setTimeout(() => {
+// 					square(v.x, v.y, 10);
+// 				}, 20);
+
+// 				let alt = u.dist + 1;
+// 				if (alt < v.dist) {
+// 					v.dist = alt;
+// 					v.prec = u;
+// 				}
+// 			}
+// 		});
+// 	}
+// 	fill(50);
+// 	let path = [];
+// 	let node = end;
+// 	if (node.prec != undefined) {
+// 		while (node != undefined) {
+// 			path.push(node);
+// 			square(node.x, node.y, 10);
+// 			node = node.prec;
+// 		}
+// 	}
+// 	console.log(path);
+// }
+
+// function mouseDragged() {
+// 	dim = 10;
+// 	// fill(51);
+// 	x = mouseX - (mouseX % dim);
+// 	y = mouseY - (mouseY % dim);
+// 	animate(x, y, dim);
+// }
+
+// function mouseClicked() {
+// 	dim = 10;
+// 	// fill(51);
+// 	x = mouseX - (mouseX % dim);
+// 	y = mouseY - (mouseY % dim);
+// 	animate(x, y, dim);
+// }
+
+// function animate(x, y, dim) {
+// 	for (let i = 0; i < dim; i++) {
+// 		setTimeout(() => {
+// 			fill(51);
+// 			square(x, y, i);
+// 		}, i * 2);
+// 	}
+// }
+
 function shortestPath() {
 	let visited = [];
-	while (queue.length != 0) {
-		var u = queue.dequeue();
+	while (nodes.length != 0) {
+		var u = nodes.reduce((prev, curr) => (prev.dist < curr.dist ? prev : curr));
+		if (u.prec == end) nodes = [];
+		nodes = nodes.filter((elem) => elem != u);
 		visited.push(u);
 		adjacent(u).forEach((v) => {
 			if (!visited.includes(v)) {
+				setTimeout(() => {
+					square(v.x, v.y, 10);
+				}, 20);
+
 				let alt = u.dist + 1;
 				if (alt < v.dist) {
 					v.dist = alt;
@@ -109,7 +150,6 @@ function shortestPath() {
 			}
 		});
 	}
-	console.log(visited);
 }
 
 function adjacent(node) {
