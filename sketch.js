@@ -56,89 +56,9 @@ function mouseDragged() {
 	drawWall();
 }
 
-function drawWall() {
-	setTimeout(() => {
-		push();
-		fill("#a7a5c6");
-		stroke(0, 0, 0);
-		strokeWeight(1);
-		clickedX = mouseX - (mouseX % 20);
-		clickedY = mouseY - (mouseY % 20);
-		console.log(clickedX, clickedY);
-		if (!((clickedX == start.x && clickedY == start.y) || (clickedX == end.x && clickedY == end.y))) {
-			console.log(start.x, start.y, clickedX, clickedY, (clickedX != start.x && clickedY != start.y) || (clickedX != end.x && clickedY != end.y));
-			wall.push(nodes.find((element) => element.x == clickedX && element.y == clickedY));
-			square(clickedX, clickedY, 20);
-		}
-
-		pop();
-	});
-}
-
 function execute() {
 	dijkstra();
 	setTimeout(() => {
 		showPath();
 	});
-}
-
-function showPath() {
-	push();
-	fill("#f5cb5c");
-	let node = end;
-	if (node.prec != undefined) {
-		while (node != undefined) {
-			if (!(node.x == start.x && node.y == start.y) && !(node.x == end.x && node.y == end.y)) square(node.x, node.y, 20);
-			node = node.prec;
-		}
-	}
-	pop();
-}
-
-function dijkstra() {
-	nodes = nodes.filter((elem) => !wall.includes(elem));
-	while (nodes.length != 0) {
-		var u = nodes.reduce((prev, curr) => (prev.dist < curr.dist ? prev : curr));
-		if (u.prec == end) nodes = [];
-		nodes = nodes.filter((elem) => elem != u);
-		adjacent(u).forEach((v) => {
-			if (!(v.x == end.x && v.y == end.y)) {
-				setTimeout(() => {
-					square(v.x, v.y, 20);
-				}, 5);
-			}
-			let alt = u.dist + 1;
-			if (alt < v.dist) {
-				v.dist = alt;
-				v.prec = u;
-			}
-		});
-	}
-}
-
-function adjacent(node) {
-	let adj = [];
-	let adjNode = undefined;
-
-	adjNode = nodes.find((element) => element.x == node.x - 20 && element.y == node.y);
-	if (adjNode != undefined) {
-		adj.push(adjNode);
-	}
-
-	adjNode = nodes.find((element) => element.x == node.x + 20 && element.y == node.y);
-	if (adjNode != undefined) {
-		adj.push(adjNode);
-	}
-
-	adjNode = nodes.find((element) => element.x == node.x && element.y == node.y - 20);
-	if (adjNode != undefined) {
-		adj.push(adjNode);
-	}
-
-	adjNode = nodes.find((element) => element.x == node.x && element.y == node.y + 20);
-	if (adjNode != undefined) {
-		adj.push(adjNode);
-	}
-
-	return adj.filter((elem) => !wall.includes(elem));
 }

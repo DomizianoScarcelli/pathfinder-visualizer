@@ -5,11 +5,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Sketch</title>
+  <title>Pathfinder Visualizer</title>
 
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
 
   <script src="libraries/p5.js"></script>
+  <script src="./utils.js"></script>
+  <script src="./algorithms/dijkstra.js"></script>
 </head>
 
 <body>
@@ -17,8 +19,6 @@
     <button onclick='execute()'>Esegui</button>
   </header>
   <div id="canvas-container">
-
-
   </div>
 
   <script src="sketch.js"></script>
