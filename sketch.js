@@ -24,59 +24,75 @@ for (var y = 0; y < 40; y++) {
 	}
 }
 
+let startImage;
+function preload() {
+	startImage = loadImage("./assets/arrow-circle-right-solid.svg");
+	endImage = loadImage("./assets/flag-solid.svg");
+}
+
 function setup() {
-	createCanvas(1400, 800);
-	fill(0, 200, 0);
-	rect(start.x, start.y, 20);
-	fill(200, 0, 0);
-	rect(end.x, end.y, 20);
-	fill(50, 50, 50);
+	var canvas = createCanvas(1400, 800);
+	canvas.parent("canvas-container");
+	// fill(0, 200, 0);
+	image(startImage, start.x, start.y, 20, 20);
+	// fill(200, 0, 0);
+	image(endImage, end.x, end.y, 20, 20);
+	fill("#242423");
+	for (var x = 0; x < width; x += 20) {
+		for (var y = 0; y < height; y += 20) {
+			stroke("rgba(0%,0%,0%,0.1)");
+			strokeWeight(0.1);
+			line(x, 0, x, height);
+			line(0, y, width, y);
+		}
+	}
 }
 
 function mouseClicked() {
-	setTimeout(() => {
-		push();
-		fill(25, 100, 122);
-		clickedX = mouseX - (mouseX % 20);
-		clickedY = mouseY - (mouseY % 20);
-		console.log(clickedX, clickedY);
-		wall.push(nodes.find((element) => element.x == clickedX && element.y == clickedY));
-		square(clickedX, clickedY, 20);
-		pop();
-	});
+	drawWall();
 }
 
 function mouseDragged() {
+	drawWall();
+}
+
+function drawWall() {
 	setTimeout(() => {
 		push();
-		fill(25, 100, 122);
+		fill("#a7a5c6");
+		stroke(0, 0, 0);
+		strokeWeight(1);
 		clickedX = mouseX - (mouseX % 20);
 		clickedY = mouseY - (mouseY % 20);
 		console.log(clickedX, clickedY);
-		wall.push(nodes.find((element) => element.x == clickedX && element.y == clickedY));
-		square(clickedX, clickedY, 20);
+		if (!((clickedX == start.x && clickedY == start.y) || (clickedX == end.x && clickedY == end.y))) {
+			console.log(start.x, start.y, clickedX, clickedY, (clickedX != start.x && clickedY != start.y) || (clickedX != end.x && clickedY != end.y));
+			wall.push(nodes.find((element) => element.x == clickedX && element.y == clickedY));
+			square(clickedX, clickedY, 20);
+		}
+
 		pop();
 	});
 }
 
 function execute() {
 	dijkstra();
-	showPath();
+	setTimeout(() => {
+		showPath();
+	});
 }
 
 function showPath() {
-	setTimeout(() => {
-		push();
-		fill(0, 0, 200);
-		let node = end;
-		if (node.prec != undefined) {
-			while (node != undefined) {
-				if (!(node.x == start.x && node.y == start.y)) square(node.x, node.y, 20);
-				node = node.prec;
-			}
+	push();
+	fill("#f5cb5c");
+	let node = end;
+	if (node.prec != undefined) {
+		while (node != undefined) {
+			if (!(node.x == start.x && node.y == start.y) && !(node.x == end.x && node.y == end.y)) square(node.x, node.y, 20);
+			node = node.prec;
 		}
-		pop();
-	});
+	}
+	pop();
 }
 
 function dijkstra() {
