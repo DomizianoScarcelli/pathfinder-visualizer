@@ -16,30 +16,34 @@ function drawWall() {
 
 function drawStart() {
 	push();
-	noStroke();
 	fill("beige");
 	square(start.x, start.y, 20);
 	clickedX = mouseX - (mouseX % 20);
 	clickedY = mouseY - (mouseY % 20);
-	image(startImage, clickedX, clickedY, 20, 20);
-	nodes.splice(nodes.indexOf(start), 1);
 	start = new Node(clickedX, clickedY, undefined, 0);
-	nodes.push(start);
+	nodes = [];
+	setup();
+	// image(startImage, clickedX, clickedY, 20, 20);
+	// nodes.splice(nodes.indexOf(start), 1);
+	// start = new Node(clickedX, clickedY, undefined, 0);
+	// nodes.push(start);
 	fill("#242423");
 	pop();
 }
 
 function drawEnd() {
 	push();
-	noStroke();
 	fill("beige");
 	square(end.x, end.y, 20);
 	clickedX = mouseX - (mouseX % 20);
 	clickedY = mouseY - (mouseY % 20);
-	image(endImage, clickedX, clickedY, 20, 20);
-	nodes.splice(nodes.indexOf(end), 1);
 	end = new Node(clickedX, clickedY);
-	nodes.push(end);
+	nodes = [];
+	setup();
+	// image(endImage, clickedX, clickedY, 20, 20);
+	// nodes.splice(nodes.indexOf(end), 1);
+	// end = new Node(clickedX, clickedY);
+	// nodes.push(end);
 	fill("#242423");
 	pop();
 }
@@ -58,6 +62,8 @@ function showPath() {
 	}
 	pop();
 }
+
+function animate() {}
 
 function adjacent(node) {
 	let adj = [];

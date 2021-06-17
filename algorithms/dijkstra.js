@@ -8,7 +8,7 @@ function dijkstra() {
 			if (!(v.x == end.x && v.y == end.y) && !(v.x == start.x && v.y == start.y)) {
 				setTimeout(() => {
 					square(v.x, v.y, 20);
-				}, 5);
+				}, 0);
 			}
 			let alt = u.dist + 1;
 			if (alt < v.dist) {
