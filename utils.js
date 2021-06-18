@@ -63,8 +63,6 @@ function showPath() {
 	pop();
 }
 
-function animate() {}
-
 function adjacent(node) {
 	let adj = [];
 	let adjNode = undefined;
@@ -88,6 +86,8 @@ function adjacent(node) {
 	if (adjNode != undefined) {
 		adj.push(adjNode);
 	}
-
-	return adj.filter((elem) => !wall.includes(elem));
+	console.log(wall);
+	console.log(adj);
+	console.log(adj.filter((elem) => !wall.includes(elem)));
+	return adj.filter((elem) => !wall.find((wallElem) => elem.x == wallElem.x && elem.y == wallElem.y));
 }
