@@ -6,13 +6,14 @@ class Node {
 		this.prec = prec;
 	}
 }
+var globalDim = 40;
 
 let WALL = "wall";
 let START = "start";
 let END = "end";
 
-let start = new Node(500, 500, undefined, 0);
-let end = new Node(20, 20);
+let start = new Node(400, 400, undefined, 0);
+let end = new Node(40, 40);
 let wall = [];
 let nodes = [];
 let clickMode = WALL;
@@ -24,7 +25,7 @@ function preload() {
 }
 
 function setup() {
-	var canvas = createCanvas(1600, 700);
+	var canvas = createCanvas(1600, 800);
 	canvas.parent("canvas-container");
 
 	//draws wall (empty at the beginning)
@@ -33,14 +34,14 @@ function setup() {
 	stroke(0, 0, 0);
 	strokeWeight(1);
 	wall.forEach((elem) => {
-		square(elem.x, elem.y, 20);
+		square(elem.x, elem.y, globalDim);
 	});
 
 	pop();
 	//Set up the nodes
-	for (var y = 0; y < canvas.height / 20; y++) {
-		for (var x = 0; x < canvas.width / 20; x++) {
-			let node = new Node(x * 20, y * 20, undefined, Infinity);
+	for (var y = 0; y < canvas.height / globalDim; y++) {
+		for (var x = 0; x < canvas.width / globalDim; x++) {
+			let node = new Node(x * globalDim, y * globalDim, undefined, Infinity);
 			if (node.x == start.x && node.y == start.y) {
 				nodes.push(start);
 			} else if (node.x == end.x && node.y == end.y) {
@@ -50,12 +51,12 @@ function setup() {
 			}
 		}
 	}
-	image(startImage, start.x, start.y, 20, 20);
-	image(endImage, end.x, end.y, 20, 20);
+	image(startImage, start.x, start.y, globalDim, globalDim);
+	image(endImage, end.x, end.y, globalDim, globalDim);
 	fill("#242423");
 	// draw grid
-	for (var x = 0; x < width; x += 20) {
-		for (var y = 0; y < height; y += 20) {
+	for (var x = 0; x < width; x += globalDim) {
+		for (var y = 0; y < height; y += globalDim) {
 			stroke("rgba(0%,0%,0%,0.1)");
 			strokeWeight(0.1);
 			line(x, 0, x, height);
