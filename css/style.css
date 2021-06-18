@@ -4,7 +4,6 @@ body {
 }
 
 #canvas-container {
-	padding-top: 5rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -20,4 +19,52 @@ header {
 	width: 100vw;
 	height: 5rem;
 	background-color: #f5cb5c;
+}
+
+.toolbar {
+	padding: 0.5rem, 0, 0.5rem, 0;
+	height: 10rem;
+	width: 1600px; /*Don't like this hardcoded value but ok*/
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.toolbar-left {
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	flex-direction: row;
+	padding-left: 5rem;
+	padding-top: 5rem;
+	gap: 2rem;
+}
+
+.toolbar-right {
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	flex-direction: row;
+	padding-right: 5rem;
+	padding-top: 5rem;
+	gap: 2rem;
+}
+.toolbar-button {
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.start-text {
+	font-size: 20px;
+
+	color: #e8eddf;
+	font-family: "Baloo Tammudu 2";
+}
+
+button {
+	font-family: "Baloo Tammudu 2";
 }

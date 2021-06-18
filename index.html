@@ -16,13 +16,45 @@
 
 <body>
   <header>
-    <button onclick='execute()'>Esegui</button>
-    <button onclick='clickMode = START'>Start</button>
-    <button onclick='clickMode = END'>End</button>
-    <button onclick='clickMode = WALL'>Wall</button>
+
 
   </header>
   <div id="canvas-container">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div class="toolbar-button" onclick='clickMode = START'>
+          <img src='../assets/start.svg' class="start-icon"></img>
+          <div class="start-text">Start</div>
+        </div>
+        <div class="toolbar-button" onclick='clickMode = END'>
+          <img src='../assets/finish.svg' class="start-icon"></img>
+          <div class="start-text">Finish</div>
+        </div>
+        <div class="toolbar-button">
+          <img src='../assets/erase.svg' class="start-icon"></img>
+          <div class="start-text">Erase</div>
+        </div>
+        <div class="toolbar-button" onclick='clickMode = WALL'>
+          <img src='../assets/wall.svg' class="start-icon"></img>
+          <div class="start-text">Wall</div>
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <div class="toolbar-button" onclick='clickMode = START'>
+          <img src='../assets/undo.svg' class="start-icon"></img>
+          <div class="start-text">Undo</div>
+        </div>
+        <div class="toolbar-button" onclick='clickMode = END'>
+          <img src='../assets/redo.svg' class="start-icon"></img>
+          <div class="start-text">Redo</div>
+        </div>
+        <div class="toolbar-button" onclick='execute()'>
+          <img src='../assets/play.svg' class="start-icon"></img>
+          <div class="start-text">Play</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <script src="sketch.js"></script>

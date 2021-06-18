@@ -24,7 +24,7 @@ function preload() {
 }
 
 function setup() {
-	var canvas = createCanvas(1400, 800);
+	var canvas = createCanvas(1600, 700);
 	canvas.parent("canvas-container");
 
 	//draws wall (empty at the beginning)
@@ -38,8 +38,8 @@ function setup() {
 
 	pop();
 	//Set up the nodes
-	for (var y = 0; y < 40; y++) {
-		for (var x = 0; x < 70; x++) {
+	for (var y = 0; y < canvas.height / 20; y++) {
+		for (var x = 0; x < canvas.width / 20; x++) {
 			let node = new Node(x * 20, y * 20, undefined, Infinity);
 			if (node.x == start.x && node.y == start.y) {
 				nodes.push(start);
