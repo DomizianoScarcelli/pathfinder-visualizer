@@ -1,3 +1,54 @@
+$(document).ready(function () {
+	/**
+	 * Da migliorare assolutamente sta cosa. Non so perchè ma non funziona con un for loop
+	 */
+	let start = document.getElementById("start");
+	let finish = document.getElementById("finish");
+	let erase = document.getElementById("erase");
+	let wall = document.getElementById("wall");
+	let undo = document.getElementById("undo");
+	let redo = document.getElementById("redo");
+	let play = document.getElementById("play");
+
+	wall.style.backgroundColor = "#464746";
+
+	start.addEventListener("click", () => {
+		resetToolColors();
+		start.style.backgroundColor = "#464746";
+	});
+
+	finish.addEventListener("click", () => {
+		resetToolColors();
+		finish.style.backgroundColor = "#464746";
+	});
+	erase.addEventListener("click", () => {
+		resetToolColors();
+		erase.style.backgroundColor = "#464746";
+	});
+	wall.addEventListener("click", () => {
+		resetToolColors();
+		wall.style.backgroundColor = "#464746";
+	});
+	undo.addEventListener("click", () => {
+		resetToolColors();
+		undo.style.backgroundColor = "#464746";
+	});
+	redo.addEventListener("click", () => {
+		resetToolColors();
+		redo.style.backgroundColor = "#464746";
+	});
+	// play.addEventListener("click", () => {
+	// 	resetToolColors();
+	// 	play.style.backgroundColor = "#464746";
+	// });
+});
+
+function resetToolColors() {
+	for (item of document.getElementsByClassName("toolbar-button")) {
+		item.style.backgroundColor = "#333533";
+	}
+}
+
 function drawWall() {
 	setTimeout(() => {
 		push();
@@ -12,6 +63,14 @@ function drawWall() {
 		}
 		pop();
 	});
+}
+
+function eraseWall() {
+	//TODO forse si potrebbe migliorare sta cosa
+	clickedX = mouseX - (mouseX % globalDim);
+	clickedY = mouseY - (mouseY % globalDim);
+	wall = wall.filter((elem) => elem.x != clickedX || elem.y != clickedY);
+	setup();
 }
 
 function drawStart() {
@@ -86,8 +145,5 @@ function adjacent(node) {
 	if (adjNode != undefined) {
 		adj.push(adjNode);
 	}
-	console.log(wall);
-	console.log(adj);
-	console.log(adj.filter((elem) => !wall.includes(elem)));
 	return adj.filter((elem) => !wall.find((wallElem) => elem.x == wallElem.x && elem.y == wallElem.y));
 }

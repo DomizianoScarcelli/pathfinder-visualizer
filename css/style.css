@@ -19,6 +19,36 @@ header {
 	width: 100vw;
 	height: 5rem;
 	background-color: #f5cb5c;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+}
+
+.header-left {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 3rem;
+	padding-left: 10rem;
+	padding-top: 1rem;
+}
+
+.header-right {
+	padding-right: 10rem;
+	padding-top: 1rem;
+}
+
+.header-text {
+	font-family: "Baloo Tammudu 2";
+	font-size: 25px;
+	font-weight: 600;
+}
+
+.header-title {
+	font-family: "Baloo Tammudu 2";
+	font-size: 40px;
+	font-weight: bold;
 }
 
 .toolbar {
@@ -38,7 +68,9 @@ header {
 	flex-direction: row;
 	padding-left: 5rem;
 	padding-top: 5rem;
-	gap: 2rem;
+	padding-bottom: 3rem;
+
+	gap: 1rem;
 }
 
 .toolbar-right {
@@ -48,7 +80,8 @@ header {
 	flex-direction: row;
 	padding-right: 5rem;
 	padding-top: 5rem;
-	gap: 2rem;
+	padding-bottom: 3rem;
+	gap: 1rem;
 }
 .toolbar-button {
 	cursor: pointer;
@@ -56,10 +89,19 @@ header {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	transition: background-color linear 100ms;
+	padding: 1rem;
+
+	border-radius: 10px;
+}
+
+.toolbar-button:hover {
+	background-color: #464746;
 }
 
 .start-text {
-	font-size: 20px;
+	font-size: 25px;
+	height: 30px;
 	color: #e8eddf;
 	font-family: "Baloo Tammudu 2";
 }

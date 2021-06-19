@@ -8,6 +8,7 @@
   <title>Pathfinder Visualizer</title>
 
   <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <script src="libraries/p5.js"></script>
   <script src="./utils.js"></script>
@@ -16,41 +17,49 @@
 
 <body>
   <header>
-
+    <div class="header-left">
+      <div class='header-text'>Algorithm</div>
+      <div class='header-text'>Speed</div>
+      <div class='header-text'>Generate Maze</div>
+    </div>
+    <div class="header-right">
+      <div class="header-title">Pathfinder Visualizer</div>
+    </div>
 
   </header>
   <div id="canvas-container">
     <div class="toolbar">
       <div class="toolbar-left">
-        <div class="toolbar-button" onclick='clickMode = START'>
-          <img src='../assets/start.svg' class="start-icon"></img>
-          <div class="start-text">Start</div>
-        </div>
-        <div class="toolbar-button" onclick='clickMode = END'>
-          <img src='../assets/finish.svg' class="start-icon"></img>
-          <div class="start-text">Finish</div>
-        </div>
-        <div class="toolbar-button">
-          <img src='../assets/erase.svg' class="start-icon"></img>
-          <div class="start-text">Erase</div>
-        </div>
-        <div class="toolbar-button" onclick='clickMode = WALL'>
-          <img src='../assets/wall.svg' class="start-icon"></img>
-          <div class="start-text">Wall</div>
-        </div>
-      </div>
-      <div class="toolbar-right">
-        <div class="toolbar-button" onclick='clickMode = START'>
+        <div class="toolbar-button" id='undo' onclick='clickMode = UNDO'>
           <img src='../assets/undo.svg' class="start-icon"></img>
           <div class="start-text">Undo</div>
         </div>
-        <div class="toolbar-button" onclick='clickMode = END'>
+        <div class="toolbar-button" id='redo' onclick='clickMode = REDO'>
           <img src='../assets/redo.svg' class="start-icon"></img>
           <div class="start-text">Redo</div>
         </div>
-        <div class="toolbar-button" onclick='execute()'>
+        <div class="toolbar-button" id='play' onclick='execute()'>
           <img src='../assets/play.svg' class="start-icon"></img>
           <div class="start-text">Play</div>
+        </div>
+      </div>
+
+      <div class="toolbar-right">
+        <div class="toolbar-button" id='start' onclick='clickMode = START'>
+          <img src='../assets/start.svg' class="start-icon"></img>
+          <div class="start-text">Start</div>
+        </div>
+        <div class="toolbar-button" id='finish' onclick='clickMode = END'>
+          <img src='../assets/finish.svg' class="start-icon"></img>
+          <div class="start-text">Finish</div>
+        </div>
+        <div class="toolbar-button" id='erase' onclick='clickMode = ERASE'>
+          <img src='../assets/erase.svg' class="start-icon"></img>
+          <div class="start-text">Erase</div>
+        </div>
+        <div class="toolbar-button" id='wall' onclick='clickMode = WALL'>
+          <img src='../assets/wall.svg' class="start-icon"></img>
+          <div class="start-text">Wall</div>
         </div>
       </div>
 

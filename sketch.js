@@ -11,6 +11,7 @@ var globalDim = 40;
 let WALL = "wall";
 let START = "start";
 let END = "end";
+let ERASE = "erase";
 
 let start = new Node(400, 400, undefined, 0);
 let end = new Node(40, 40);
@@ -77,6 +78,9 @@ function mouseClicked() {
 			case END:
 				drawEnd();
 				break;
+			case ERASE:
+				eraseWall();
+				break;
 		}
 	}
 }
@@ -90,16 +94,4 @@ function execute() {
 	setTimeout(() => {
 		showPath();
 	});
-}
-
-function setStartPoint() {
-	clickMode = START;
-}
-
-function setEndPoint() {
-	clickMode = END;
-}
-
-function setWall() {
-	clickMode = WALL;
 }
