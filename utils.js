@@ -8,7 +8,6 @@ $(document).ready(function () {
 	let wall = document.getElementById("wall");
 	let undo = document.getElementById("undo");
 	let redo = document.getElementById("redo");
-	let play = document.getElementById("play");
 
 	wall.style.backgroundColor = "#464746";
 
@@ -37,10 +36,6 @@ $(document).ready(function () {
 		resetToolColors();
 		redo.style.backgroundColor = "#464746";
 	});
-	// play.addEventListener("click", () => {
-	// 	resetToolColors();
-	// 	play.style.backgroundColor = "#464746";
-	// });
 });
 
 function resetToolColors() {
@@ -57,11 +52,15 @@ function drawWall() {
 		strokeWeight(1);
 		clickedX = mouseX - (mouseX % globalDim);
 		clickedY = mouseY - (mouseY % globalDim);
-		if (!((clickedX == start.x && clickedY == start.y) || (clickedX == end.x && clickedY == end.y))) {
-			wall.push(nodes.find((element) => element.x == clickedX && element.y == clickedY));
-			square(clickedX, clickedY, globalDim);
+		clickedNode = new Node(clickedX, clickedY);
+		if (!(start.equals(clickedNode) || end.equals(clickedNode))) {
+			if (wall.find((elem) => elem.equals(clickedNode)) == undefined) {
+				//prevents doubles walls
+				wall.push(nodes.find((element) => element.equals(clickedNode)));
+				square(clickedX, clickedY, globalDim);
+			}
+			pop();
 		}
-		pop();
 	});
 }
 
@@ -113,7 +112,7 @@ function showPath() {
 	let node = end;
 	if (node.prec != undefined) {
 		while (node != undefined) {
-			if (!(node.x == start.x && node.y == start.y) && !(node.x == end.x && node.y == end.y)) {
+			if (!node.equals(start) && !node.equals(end)) {
 				square(node.x, node.y, globalDim);
 			}
 			node = node.prec;
@@ -145,5 +144,5 @@ function adjacent(node) {
 	if (adjNode != undefined) {
 		adj.push(adjNode);
 	}
-	return adj.filter((elem) => !wall.find((wallElem) => elem.x == wallElem.x && elem.y == wallElem.y));
+	return adj.filter((elem) => !wall.find((wallElem) => elem.equals(wallElem)));
 }

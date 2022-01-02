@@ -6,6 +6,11 @@ class Node {
 		this.prec = prec;
 	}
 }
+
+Node.prototype.equals = function (o) {
+	return this.x == o.x && this.y == o.y;
+};
+
 var globalDim = 40;
 
 let WALL = "wall";
@@ -26,6 +31,7 @@ function preload() {
 }
 
 function setup() {
+	nodes = [];
 	var canvas = createCanvas(1600, 800);
 	canvas.parent("canvas-container");
 
@@ -37,15 +43,14 @@ function setup() {
 	wall.forEach((elem) => {
 		square(elem.x, elem.y, globalDim);
 	});
-
 	pop();
 	//Set up the nodes
 	for (var y = 0; y < canvas.height / globalDim; y++) {
 		for (var x = 0; x < canvas.width / globalDim; x++) {
 			let node = new Node(x * globalDim, y * globalDim, undefined, Infinity);
-			if (node.x == start.x && node.y == start.y) {
+			if (node.equals(start)) {
 				nodes.push(start);
-			} else if (node.x == end.x && node.y == end.y) {
+			} else if (node.equals(end)) {
 				nodes.push(end);
 			} else {
 				nodes.push(node);
